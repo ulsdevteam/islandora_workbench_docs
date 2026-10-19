@@ -118,10 +118,10 @@ By default, `export_csv` and `get_data_from_view` tasks export only the nodes yo
 
 To turn this on, add the setting that corresponds to your task to your configuration file:
 
-| Task | Setting to enable | Optional depth limit |
-| --- | --- | --- |
-| `export_csv` | `export_csv_include_members: true` | `csv_member_max_depth` |
-| `get_data_from_view` | `get_data_from_view_include_members: true` | `view_member_max_depth` |
+| Setting | Purpose |
+| --- | --- |
+| `include_members: true` | Enables exporting members. |
+| `max_depth` | Optional. Limits how many levels below each starting node Workbench follows. |
 
 A sample `export_csv` configuration file:
 
@@ -134,9 +134,9 @@ input_csv: nodes_to_export.csv
 content_type: islandora_object
 export_csv_file_path: output.csv
 # Also export the members of each node in nodes_to_export.csv.
-export_csv_include_members: true
+include_members: true
 # Optional. If not present, Workbench follows members to any depth.
-csv_member_max_depth: 3
+max_depth: 3
 ```
 
 A sample `get_data_from_view` configuration file:
@@ -149,8 +149,8 @@ username: admin
 password: islandora
 content_type: islandora_object
 export_csv_file_path: /tmp/islandora_export.csv
-get_data_from_view_include_members: true
-view_member_max_depth: 3
+include_members: true
+max_depth: 3
 ```
 
 Some things to note:
@@ -158,7 +158,7 @@ Some things to note:
 * The nodes you identify in your input CSV file or View are the *starting nodes*. Workbench exports each starting node and then all of its members, as rows in the same output CSV file.
 * A node is only exported once. If a node is reachable from more than one starting node, or through a loop in the hierarchy, Workbench logs a warning that the node has already been processed and skips the duplicate.
 * The `content_type` setting still applies to every node, including members. Members whose content type is different from the one named in `content_type` are skipped (and logged), exactly as non-matching nodes are in tasks that don't include members. If your hierarchy contains more than one content type, run the task once for each content type.
-* The `csv_member_max_depth` and `view_member_max_depth` settings are optional and must be whole numbers. They limit how many levels of containers below the starting node Workbench descends into. If you omit them, there is no limit. See "[Limiting how deep Workbench goes](#limiting-how-deep-workbench-goes)" below.
+* The `max_depth` setting is optional and must be a whole number. They limit how many levels of containers below the starting node Workbench descends into. If you omit them, there is no limit. See "[Limiting how deep Workbench goes](#limiting-how-deep-workbench-goes)" below.
 * To also export the media files of the nodes (including their members), add the settings described in "[Exporting image, video, etc. files along with CSV data](/islandora_workbench_docs/exporting_media/)". Because exporting members can produce many more rows and files than you expect, run a small test first.
 * Workbench finds members using a View provided by version 1.3.0 or higher of the [Islandora Workbench Integration](https://github.com/mjordan/islandora_workbench_integration) module. Earlier versions do not include this View. By default Workbench expects it at `/islandora_workbench_integration/members-of-node`; if your site uses a different path, set `members_of_node_view_endpoint` in your configuration file. If the View is not available, `--check` will report the problem and exit before any export is attempted.
 * `get_media_report_from_view` tasks do not support exporting members.

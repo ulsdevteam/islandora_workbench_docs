@@ -57,11 +57,11 @@ export_csv_file_path: output.csv
 export_file_directory: /tmp/exported_files
 additional_files:
   - thumbnail: http://pcdm.org/use#ThumbnailImage
-export_csv_include_members: true
-csv_member_max_depth: 3
+include_members: true
+max_depth: 3
 ```
 
-The same combination works in `get_data_from_view` tasks using `get_data_from_view_include_members`. Workbench downloads the files of each starting node and of each of its members, and writes them to the `file` column and to any columns named in `additional_files` (here, `thumbnail`).
+The same combination works in `get_data_from_view` tasks, using the same `include_members` and `max_depth` settings. Workbench downloads the files of each starting node and of each of its members, and writes them to the `file` column and to any columns named in `additional_files` (here, `thumbnail`).
 
 For a collection node (1162) with 21 members, the relevant columns of the output CSV look like this (other columns omitted, and the absolute paths shortened here for readability):
 
