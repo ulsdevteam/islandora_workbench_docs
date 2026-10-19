@@ -160,9 +160,9 @@ Some things to note:
 * The `content_type` setting still applies to every node, including members. Members whose content type is different from the one named in `content_type` are skipped (and logged), exactly as non-matching nodes are in tasks that don't include members. If your hierarchy contains more than one content type, run the task once for each content type.
 * The `max_depth` setting is optional and must be a whole number. They limit how many levels of containers below the starting node Workbench descends into. If you omit them, there is no limit. See "[Limiting how deep Workbench goes](#limiting-how-deep-workbench-goes)" below.
 * To also export the media files of the nodes (including their members), add the settings described in "[Exporting image, video, etc. files along with CSV data](/islandora_workbench_docs/exporting_media/)". Because exporting members can produce many more rows and files than you expect, run a small test first.
-* Workbench finds members using a View provided by version 1.3.0 or higher of the [Islandora Workbench Integration](https://github.com/mjordan/islandora_workbench_integration) module. Earlier versions do not include this View. By default Workbench expects it at `/islandora_workbench_integration/members-of-node`; if your site uses a different path, set `members_of_node_view_endpoint` in your configuration file. If the View is not available, `--check` will report the problem and exit before any export is attempted.
+* Workbench finds members using a View provided by version 1.4.0 or higher of the [Islandora Workbench Integration](https://github.com/mjordan/islandora_workbench_integration) module. Earlier versions do not include this View. By default Workbench expects it at `/islandora_workbench_integration/members-of-node`; if your site uses a different path, set `members_of_node_view_endpoint` in your configuration file. If the View is not available, `--check` will report the problem and exit before any export is attempted.
 * `get_media_report_from_view` tasks do not support exporting members.
-* The "members of node" View returns only members whose content type is "Repository Item" (`islandora_object`). If your members use a different content type, edit the View's "Content type" filter. If you can't yet upgrade the Integration module to version 1.3.0, you can create the View yourself; see "[Creating the \"Members of node\" View manually](#creating-the-members-of-node-view-manually)" below.
+* The "members of node" View returns only members whose content type is "Repository Item" (`islandora_object`). If your members use a different content type, edit the View's "Content type" filter. If you can't yet upgrade the Integration module to version 1.4.0, you can create the View yourself; see "[Creating the \"Members of node\" View manually](#creating-the-members-of-node-view-manually)" below.
 
 ### Limiting how deep Workbench goes
 
@@ -182,7 +182,7 @@ Setting a depth is a good way to test an export on a large hierarchy before runn
 
 ### Creating the "Members of node" View manually
 
-If you want to export members before version 1.3.0 of the Integration module is available to you, you can create the "Members of node" View yourself. This is a temporary workaround; once you can upgrade the Integration module, upgrade it and delete your hand-built View first (the module's View uses the same machine name, `members_of_node`, and installing it over an existing View of that name may fail).
+If you want to export members before version 1.4.0 of the Integration module is available to you, you can create the "Members of node" View yourself. This is a temporary workaround; once you can upgrade the Integration module, upgrade it and delete your hand-built View first (the module's View uses the same machine name, `members_of_node`, and installing it over an existing View of that name may fail).
 
 Your site needs the Views, Views UI, RESTful Web Services, Serialization, and HTTP Basic Authentication modules enabled. If you already use `get_data_from_view` tasks, you have them.
 
